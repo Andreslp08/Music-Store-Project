@@ -1,0 +1,29 @@
+
+.switch {
+    position: relative;
+    min-width: 50px;
+    min-height: 25px;
+    border-radius: 25px;
+}
+.switch:hover{
+    cursor: pointer;
+}
+
+.switch-toogle{
+    position: absolute;
+    width: 40%;
+    height:80%;
+    top: calc((100% - 80%)/2);
+    left: 4px;
+    transform: translateX(0);
+    border-radius: 100%;
+    transition: transform .3s, background-color .3s;
+}
+
+.switch-toogle.switch-activated{
+    transform: translateX(calc(100% + 2px));
+}
+.switch-toogle.switch-desactivated{
+    transform: translateX(0);
+}
+
