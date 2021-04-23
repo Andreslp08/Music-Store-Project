@@ -11,7 +11,7 @@ export class ProductCard extends React.Component{
     render(){
         return(
             <div className="product-card">
-                  <div className="product-off">50% off</div>
+                  <div className="product-off"></div>
                 <div className="product-new">New</div>
                 <div ref={this.imgRef} className="product-img"></div>
                 {/* <img className="product-img" src={this.imgUrl}></img> */}
@@ -26,6 +26,7 @@ export class ProductCard extends React.Component{
     componentDidMount(){
         this.imgRef.current.style.backgroundImage = `url(${this.imgUrl})`;
     }
+
 
 
 }

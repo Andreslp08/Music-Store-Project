@@ -19,7 +19,7 @@ export class ProductsBar extends React.Component {
 
     render() {
         return (
-            <section ref={this.bar} className="products-main relative flex flex-col items-center h-screen bg-gradient-to-r from-purple-500 to-purple-900" data-state="hide">
+            <section ref={this.bar} className="products-main relative flex flex-col items-center bg-gradient-to-r from-purple-500 to-purple-900" data-state="hide">
                 <div ref={this.productListButton} className="product-list-button  flex flex-row w-max px-2 p-1 justify-center items-center m-2 cursor-pointer bg-onprimary rounded-full">
                     <p className="color-primary p-1">Products list</p>
                     <i className="arrow-icon fas fa-angle-down color-primary p-1"></i>

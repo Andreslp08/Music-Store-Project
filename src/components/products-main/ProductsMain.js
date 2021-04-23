@@ -7,28 +7,36 @@ import {
 } from "react-router-dom";
 import { PAGE_ROUTES } from '../../models/PageRoutes';
 import { ProductCard } from '../product-card/ProductCard';
+import { ProductsController } from '../../controllers/ProductsController';
 
 export class ProductsMain extends React.Component {
 
 
-    constructor(props){
+    constructor(props) {
         super(props)
-
+        this.state={
+            products:[<ProductCard/>,<ProductCard/>]
+        }
     }
+
+    componentDidMount(){
+        this.setState({products:[<ProductCard/>,<ProductCard/>,<ProductCard/>]})
+    }
+    componentDidUpdate(){
+    }
+    componentWillUnmount(){
+        
+        console.log("hola")
+    }
+
     render() {
         return (
             <Router>
                 <section className="flex below-navbar relative flex-col sm:flex-row">
                     <ProductsBar />
                     <section className="flex flex-grow flex-wrap flex-row items-center justify-center">
-                        <Route path={PAGE_ROUTES.products.guitars}>
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
-                        <ProductCard/>
+                        <Route path={PAGE_ROUTES.products.guitars} >
+                            {this.renderProducts()}
                         </Route>
                         <Route path={PAGE_ROUTES.products.basses}>
                             <div className="color-onbackground">Basses</div>
@@ -54,5 +62,11 @@ export class ProductsMain extends React.Component {
             </Router>
 
         )
+    }
+
+    renderProducts(){
+       return this.state.products.map(()=>{
+            return <div>hola</div>
+        })
     }
 }

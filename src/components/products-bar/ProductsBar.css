@@ -4,6 +4,7 @@
 .products-main{
     width: 230px;
     min-width: 230px;
+    height: calc(100vh - var(--navbarHeight));
     position: sticky;
     left: 0;
     top: calc(0% + var(--navbarHeight));
@@ -57,7 +58,7 @@
         left: 0;
         top: 100%;
         background-color: inherit;
-        height: 100vh;
+        height: calc(100vh - var(--navbarHeight));
         transition: transform .3s, opacity .3s, visibility .3s;
     }
 
