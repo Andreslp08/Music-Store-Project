@@ -7,8 +7,9 @@ import {
   Route
 } from "react-router-dom";
 import { Home } from './components/home/Home';
-import { ProductsMain } from './components/products-main/ProductsMain';
+
 import { PAGE_ROUTES } from './models/PageRoutes';
+import ProductsMain from './components/products-main/ProductsMain';
 
 function App() {
   // windowSizes();
@@ -18,26 +19,28 @@ function App() {
         <Navbar />
       </div>
       <main>
-       
-          <Route path={PAGE_ROUTES.home}>
+        <Switch>
+          <Route exact path={PAGE_ROUTES.home}>
             <Home />
           </Route>
-          <Route path={PAGE_ROUTES.products.all}>
-            <ProductsMain/>
-          </Route>
-     
+          <Route exact path={PAGE_ROUTES.products.sectionParams} render={(props) => (
+            <ProductsMain key={window.location.pathname} />)
+          } />
+        </Switch>
       </main>
+
+
 
     </Router>
   );
 }
 
-function windowSizes(){
+function windowSizes() {
   window.onresize = () => {
     if (!window.matchMedia('(max-width:800px)').matches || !window.matchMedia('(max-width:600px)').matches) {
-        document.body.style.overflow = "auto";
+      document.body.style.overflow = "auto";
     }
-};
+  };
 }
 
 export default App;
