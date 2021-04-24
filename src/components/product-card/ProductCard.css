@@ -8,6 +8,7 @@
     flex-direction: column;
     border-radius: .5rem;
     max-width: 220px;
+    min-width: 220px;
     height: 300px;
     background-color: var(--backgroundColor);
     box-shadow: 1px 5px 10px rgba(0,0,0,.5),0px 0px 5px rgba(0,0,0,.5);
@@ -33,10 +34,10 @@
     top: -5%;
     padding: .5rem;
     left: -5%;
-    background-color:var(--onBackgroundColor2);
+    background-color:rgb(0, 153, 255);
     border-radius: 15px;
     box-shadow: 1px 5px 10px rgba(0,0,0,.5),0px 0px 5px rgba(0,0,0,.5);
-    color: var(--onPrimaryColor);
+    color: rgb(255, 255, 255);
     text-align: center; 
 }
 
