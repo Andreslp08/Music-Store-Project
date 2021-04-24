@@ -32,4 +32,25 @@ export class ProductsController {
             });
         return products;
     }
+
+    static async getAllProductsBySection(section) {
+        const products =
+            await new Promise((resolve, reject) => {
+                if (PRODUCTS_DB.length > 0) {
+                    let sectionProducts = PRODUCTS_DB.filter(value =>
+                        value.section.toLowerCase() == section.toLowerCase()
+                    )
+                    if (sectionProducts.length > 0) {
+                        resolve(sectionProducts)
+                    }
+                    else{
+                        reject("Section not founded");
+                    }
+                }
+                else {
+                    reject("Section not founded");
+                }
+            });
+        return products;
+    }
 }
