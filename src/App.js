@@ -4,7 +4,8 @@ import { Navbar } from './components/navbar/Navbar';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import { Home } from './components/home/Home';
 
@@ -32,6 +33,12 @@ function App() {
             exact path={PAGE_ROUTES.products.productParams}
             render={(props) => (
               <ProductView key={window.location.pathname} />)} />
+          <Route exact path="/">
+            <Redirect to={PAGE_ROUTES.home}/>
+          </Route>
+          <Route path='*' exact={true} >
+          <h1 className="below-navbar text-white text-5xl">Page not found 404</h1>
+          </Route>
         </Switch>
       </main>
 
