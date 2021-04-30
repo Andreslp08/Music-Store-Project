@@ -2,6 +2,7 @@ export const PAGE_ROUTES = {
     home:"/home",
     products:{
         sectionParams:"/products/:section",
+        productParams:"/products/:section/:id",
         all:"/products/all",
         guitars:"/products/guitars",
         basses:"/products/basses",
