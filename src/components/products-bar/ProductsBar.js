@@ -10,8 +10,8 @@ export class ProductsBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            category: "Guitars",
-            link: PAGE_ROUTES.products.guitars
+            category: "",
+            link: ""
         }
         this.productListButton = React.createRef();
         this.bar = React.createRef();
@@ -81,7 +81,7 @@ export class ProductsBar extends React.Component {
     showProductsList(tof) {
         if (tof == true) {
             this.bar.current.dataset.state = "show";
-            // document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";
             // window.onresize = () => {
             //     if (!window.matchMedia('(max-width:600px)').matches) {
             //         document.body.style.overflow = "auto";
@@ -100,7 +100,7 @@ export class ProductsBar extends React.Component {
         }
         else {
             this.bar.current.dataset.state = "hide";
-            // document.body.style.overflow = "auto";
+            document.body.style.overflow = "auto";
         }
 
 

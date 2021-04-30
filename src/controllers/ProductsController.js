@@ -3,19 +3,18 @@ import { PRODUCTS_DB } from "../models/database-simulation/Products";
 export class ProductsController {
 
     static async getProductById(id) {
+        const idExist = false;
         const product =
             await new Promise((resolve, reject) => {
-                for (let index = 0; index < PRODUCTS_DB.length; index++) {
-                    const product = PRODUCTS_DB[index];
-                    if (id == product.id) {
-                        resolve(product)
-                        break;
+                PRODUCTS_DB.forEach(element => {
+                    if( element.id == id){
+                        resolve(element)
+                        idExist = true;
                     }
-                    else {
-                        reject("ID not found");
-                    }
+                });
+                if( idExist == false){
+                    reject("Id not founded");
                 }
-
             });
         return product;
     }

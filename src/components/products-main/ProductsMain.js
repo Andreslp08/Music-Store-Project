@@ -14,12 +14,12 @@ import {
 import { PAGE_ROUTES } from '../../models/PageRoutes';
 import { ProductCard } from '../product-card/ProductCard';
 import { ProductsController } from '../../controllers/ProductsController';
-import { PRODUCTS_DB } from '../../models/database-simulation/Products';
-import { ProductsSection } from '../products-section/ProductsSection';
+import { PRODUCTS_DB } from '../../models/database-simulation/Products'
 import { CATEGORIES } from '../../models/Categories';
+import ProductsSection from '../products-section/ProductsSection';
 
 
- class ProductsMain extends React.Component {
+class ProductsMain extends React.Component {
 
     constructor(props) {
         super(props)
@@ -29,16 +29,19 @@ import { CATEGORIES } from '../../models/Categories';
         const section = this.props.match.params.section;
         return (
             <section className="flex below-navbar relative flex-col sm:flex-row">
-                    <ProductsBar />
-                    <section className="flex flex-grow flex-wrap flex-row items-center justify-center">
-                        {
+                <ProductsBar />
+                <section className="flex flex-grow flex-wrap flex-row items-center justify-center">
+                    {
 
-                            section.toLowerCase() === "all"?
-                            <ProductsSection sectionName={section} productsData={ProductsController.getAllProducts()} />:
+                        section.toLowerCase() === "all" ?
+                            <ProductsSection sectionName={section} productsData={ProductsController.getAllProducts()} /> :
                             <ProductsSection sectionName={section} productsData={ProductsController.getAllProductsBySection(section)} />
-                        }
-                      
-                        {/* <Route exact path={PAGE_ROUTES.products.all} >
+                    }
+                    <Route exact path={PAGE_ROUTES.products.productParams} render={(props) => (
+                        <h1 className="below-navbar">{props.match.params.id}</h1>)
+                    } />
+
+                    {/* <Route exact path={PAGE_ROUTES.products.all} >
                             <ProductsSection sectionName={"All"} productsData={ProductsController.getAllProducts()} />
                         </Route>
                         <Route exact path={PAGE_ROUTES.products.guitars} >
@@ -62,7 +65,7 @@ import { CATEGORIES } from '../../models/Categories';
                         <Route exact path={PAGE_ROUTES.products.trumpets}>
                             <div className="color-onbackground">Trumpets</div>
                         </Route> */}
-                    </section>
+                </section>
             </section>
 
 

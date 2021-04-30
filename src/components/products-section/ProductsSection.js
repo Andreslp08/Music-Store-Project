@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
+import {Link, withRouter} from 'react-router-dom';
 import { ProductsController } from '../../controllers/ProductsController';
-import { ProductCard } from '../product-card/ProductCard';
+import ProductCard from '../product-card/ProductCard';
+// import { ProductCard } from '../product-card/ProductCard';
 
 
-export class ProductsSection extends React.Component {
+  class ProductsSection extends React.Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +21,6 @@ export class ProductsSection extends React.Component {
             new: "New",
             promo: "Promo"
         }
-
         this.onSelectFilter = this.onSelectFilter.bind(this);
     }
 
@@ -102,7 +103,7 @@ export class ProductsSection extends React.Component {
             }
             this.setState({
                 products: filteredList.map((value, index, array) => {
-                    return <ProductCard key={`product-${value.id}`} data={value} />
+                    return <ProductCard key={`product-${value.id}`} data={value}  />
                 })
             })
         }).catch(res => {
@@ -139,3 +140,5 @@ export class ProductsSection extends React.Component {
         return <p className="color-onbackground font-dosis">{error}</p>
     }
 }
+
+export default withRouter(ProductsSection);

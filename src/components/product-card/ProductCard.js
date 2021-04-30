@@ -1,8 +1,8 @@
 import React from 'react'
-import {Link } from 'react-router-dom';
+import {Link, withRouter } from 'react-router-dom';
 import { PAGE_ROUTES } from '../../models/PageRoutes';
 import './ProductCard.css'
-export class ProductCard extends React.Component{
+ class ProductCard extends React.Component{
 
     constructor(props){
         super(props);
@@ -22,31 +22,38 @@ export class ProductCard extends React.Component{
                 isSoldOut:true
             }
         }
-    }
+        this.showProduct = this.showProduct.bind(this);
+  }
 
     render(){
-        return(
+      const priceFormated = new Intl.NumberFormat().format(this.state.data.price);
+      return(
             <div className="product-card">
                   {this.state.data.isPromo == true?
-                  <div className="product-off">{this.state.data.promo}</div>:
+                  <div className="product-card-off">{this.state.data.promo}</div>:
                     null
                   }
                   {this.state.data.isNew == true?
-                  <div className="product-new">New</div>:
+                  <div className="product-card-new">New</div>:
                     null
                   }
                 
-                <div ref={this.imgRef} className="product-img"></div>
+                <div ref={this.imgRef} className="product-card-img"></div>
                 {/* <img className="product-img" src={this.imgUrl}></img> */}
                 <h2 className="color-onbackground p-1 text-center font-anton">{this.state.data.name || "Product name"}</h2>
-                <h2 className="color-onbackground p-2 text-center ">${this.state.data.price || 0} USD</h2>
+                <h2 className="color-onbackground p-2 text-center ">${priceFormated}</h2>
                 {this.state.data.isSoldOut == true?
                   <h2 className="color-error  p-1 text-center text-sm font-bold">Sold out</h2>:
                     null
                   }
-                <Link  to={'/products/guitars/guitar1'} className="product-button"><i className="fas fa-arrow-right"></i></Link>
+                <button className="product-card-button" onClick={this.showProduct}><i className="fas fa-arrow-right"></i></button>
             </div>
         )
+    }
+
+
+    showProduct(){
+      this.props.history.push(`${this.props.location.pathname}/${this.state.data.id}`);
     }
 
     componentDidMount(){
@@ -63,3 +70,5 @@ export class ProductCard extends React.Component{
         }
     }
 }
+
+export default withRouter(ProductCard);
