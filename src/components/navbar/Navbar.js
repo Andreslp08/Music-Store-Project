@@ -92,11 +92,11 @@ export class Navbar extends React.Component {
             //     }
             // };
             this.hamburgerMenu.current.dataset.state = "show";
-            // document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";
         }
         else {
             this.hamburgerMenu.current.dataset.state = "hide";
-            // document.body.style.overflow = "auto";
+            document.body.style.overflow = "auto";
 
         }
     }
