@@ -36,6 +36,9 @@ function App() {
           <Route exact path="/">
             <Redirect to={PAGE_ROUTES.home}/>
           </Route>
+          <Route path='*' exact={true} >
+          <h1 className="below-navbar text-white text-5xl">Page not found 404</h1>
+          </Route>
         </Switch>
       </main>
 
