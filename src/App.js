@@ -10,6 +10,7 @@ import { Home } from './components/home/Home';
 
 import { PAGE_ROUTES } from './models/PageRoutes';
 import ProductsMain from './components/products-main/ProductsMain';
+import ProductView from './components/product-view/ProductView';
 
 function App() {
   // windowSizes();
@@ -23,9 +24,14 @@ function App() {
           <Route exact path={PAGE_ROUTES.home}>
             <Home />
           </Route>
-          <Route exact path={PAGE_ROUTES.products.sectionParams} render={(props) => (
-            <ProductsMain key={window.location.pathname} />)
-          } />
+          <Route
+            exact path={PAGE_ROUTES.products.sectionParams}
+            render={(props) => (
+              <ProductsMain key={window.location.pathname} />)} />
+          <Route
+            exact path={PAGE_ROUTES.products.productParams}
+            render={(props) => (
+              <ProductView key={window.location.pathname} />)} />
         </Switch>
       </main>
 
