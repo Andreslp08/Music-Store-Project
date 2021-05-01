@@ -12,6 +12,7 @@ import { Home } from './components/home/Home';
 import { PAGE_ROUTES } from './models/PageRoutes';
 import ProductsMain from './components/products-main/ProductsMain';
 import ProductView from './components/product-view/ProductView';
+import NotFound from './components/notfound/NotFound';
 
 function App() {
   // windowSizes();
@@ -37,7 +38,7 @@ function App() {
             <Redirect to={PAGE_ROUTES.home}/>
           </Route>
           <Route path='*' exact={true} >
-          <h1 className="below-navbar text-white text-5xl">Page not found 404</h1>
+            <NotFound/>
           </Route>
         </Switch>
       </main>
@@ -48,12 +49,12 @@ function App() {
   );
 }
 
-function windowSizes() {
-  window.onresize = () => {
-    if (!window.matchMedia('(max-width:800px)').matches || !window.matchMedia('(max-width:600px)').matches) {
-      document.body.style.overflow = "auto";
-    }
-  };
-}
+// function windowSizes() {
+//   window.onresize = () => {
+//     if (!window.matchMedia('(max-width:800px)').matches || !window.matchMedia('(max-width:600px)').matches) {
+//       document.body.style.overflow = "auto";
+//     }
+//   };
+// }
 
 export default App;
