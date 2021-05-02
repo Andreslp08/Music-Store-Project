@@ -1,6 +1,6 @@
 
+import  Navbar  from './components/navbar/Navbar';
 import './App.css';
-import { Navbar } from './components/navbar/Navbar';
 import {
   BrowserRouter as Router,
   Switch,
@@ -42,9 +42,6 @@ function App() {
           </Route>
         </Switch>
       </main>
-
-
-
     </Router>
   );
 }
