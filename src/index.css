@@ -1,7 +1,5 @@
-
 /* @tailwind components; */
 @tailwind base;
-@tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
@@ -10,52 +8,51 @@
 @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 :root {
-  --comfortaa:'Comfortaa', cursive;
-  --cinzel:'Cinzel Decorative', sans-serif;
+  --comfortaa: "Comfortaa", cursive;
+  --cinzel: "Cinzel Decorative", sans-serif;
   --roboto: "Roboto", sans-serif;
   --bebas: "Bebas Neue", cursive;
   --nunito: "Nunito", sans-serif;
   --righteous: "Righteous", cursive;
   --poppins: "Poppins", cursive;
   --dosis: "Dosis", sans-serif;
-  --anton:'Anton', sans-serif;
-  --arial-black:'Archivo Black', sans-serif;
-  
-  --navbarColor:rgba(255,255,255,.5);
-  --backgroundColor: #fff;
-  --onBackgroundColor:#000;
-  --onBackgroundColor2:rgb(109, 109, 109);
-  --primaryColor:#5500c5;
-  --onPrimaryColor:#fff;
-  --primaryColorVariant:#34004d;
-  --onPrimaryColorVariant:#fff;
-  --error:#f00;
-  --onError:#fff;
-  --successful:#0f0;
-  --onSuccessful:#fff;
-  --navbarHeight:55px;
+  --anton: "Anton", sans-serif;
+  --arial-black: "Archivo Black", sans-serif;
 
+  --navbarColor: rgba(255, 255, 255, 0.5);
+  --backgroundColor: #fff;
+  --onBackgroundColor: #000;
+  --onBackgroundColor2: rgb(109, 109, 109);
+  --primaryColor: #5500c5;
+  --onPrimaryColor: #fff;
+  --primaryColorVariant: #34004d;
+  --onPrimaryColorVariant: #fff;
+  --error: #f00;
+  --onError: #fff;
+  --successful: #0f0;
+  --onSuccessful: #fff;
+  --navbarHeight: 55px;
 }
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  transition: color .3s, background-color .3s;
+  transition: color 0.3s, background-color 0.3s;
   border: none;
   outline: none;
 }
 
-button:focus{
- outline: none;
+button:focus {
+  outline: none;
 }
 
-input[type=number]::-webkit-inner-spin-button {
-  opacity: 1
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1;
 }
 
 body {
@@ -77,166 +74,173 @@ a:link {
   text-decoration: none;
 }
 
-.below-navbar{
-  margin-top:var(--navbarHeight);
-}
-.min-h-offset{
-  min-height: calc(100vh - var(--navbarHeight));
-}
-
-.max-h-offset{
-  max-height: calc(100vh - var(--navbarHeight));
-}
-
-.h-offset{
-  height: calc(100vh - var(--navbarHeight));
-}
-
-.text-shadow-1{
-  text-shadow: 1px 1px 2px #000;
-}
-.text-shadow-2{
-  text-shadow: 1px 1px 2px #000,1px 1px 2px #000;
-}
-.text-shadow-3{
-  text-shadow: 1px 1px 2px #000,1px 1px 2px #000,1px 1px 2px #000;
-}
-
-
-/* ANIMATIONS */
-.hover-scale{transition:transform .3s}
-.hover-scale:hover{
-  transform: scale(1.2);
-  cursor: pointer;
-}
-/* FONTS */
-.font-anton{
-  font-family: var(--anton);
-}
-.font-dosis{
-  font-family: var(--dosis);
-}
-.font-bebas{
-  font-family: var(--bebas);
-}
-
-.font-roboto{
-  font-family: var(--roboto);
-}
-/* COLORS */
-.color-background{
-  color:var(--backgroundColor);
-}
-.color-onbackground{
-  color: var(--onBackgroundColor);
-}
-
-.bg-background{
-  background-color:var(--backgroundColor);
-}
-.bg-onbackground{
-  background-color: var(--onBackgroundColor);
-}
-
-.color-primary{
-  color:var(--primaryColor);
-}
-.color-onprimary{
-  color: var(--onPrimaryColor);
-}
-
-.bg-primary{
-  background-color:var(--primaryColor);
-}
-.bg-onprimary{
-  background-color: var(--onPrimaryColor);
-}
-
-.color-error{
-  color:var(--error);
-}
-.bg-error{
-  background-color: var(--error);
-}
-.color-successful{
-  color:var(--successful);
-}
-.bg-successful{
-  background-color: var(--successful);
-}
-
-.primary-button, .secondary-button, .variant-button{
-  padding: .5rem;
-  margin: .5rem;
+/* ************** PRIMARY STYLE **************************** */
+.primary-button,
+.secondary-button,
+.variant-button {
+  padding: 0.5rem;
+  margin: 0.5rem;
   font-family: var(--roboto);
   border: solid;
-  border-width: .5px;
+  border-width: 0.5px;
   border-color: transparent;
-  animation: scaleOutBounce .3s;
+  animation: scaleOutBounce 0.3s;
   animation-fill-mode: forwards;
-  transition: color .3s, background-color .3s, border .3s;
+  transition: color 0.3s, background-color 0.3s, border 0.3s;
 }
 
-.primary-button{
+.primary-button {
   background-color: var(--primaryColor);
   color: var(--onPrimaryColor);
 }
-.secondary-button{
+.secondary-button {
   background-color: var(--onPrimaryColor);
   color: var(--primaryColor);
   border-color: var(--primaryColor);
 }
-.variant-button{
+.variant-button {
   background-color: var(--onBackgroundColor);
   color: var(--backgroundColor);
 }
 
-.primary-button:hover, .secondary-button:hover, .variant-button:hover{
-  animation: scaleInBounce .3s;
+.primary-button:hover,
+.secondary-button:hover,
+.variant-button:hover {
+  animation: scaleInBounce 0.3s;
   animation-fill-mode: forwards;
 }
-.primary-button:hover{
+.primary-button:hover {
   background-color: var(--onPrimaryColor);
   color: var(--primaryColor);
   border-color: var(--primaryColor);
 }
 
-.secondary-button:hover{
+.secondary-button:hover {
   background-color: var(--primaryColor);
   color: var(--onPrimaryColor);
   border-color: var(--primaryColor);
 }
 
-.variant-button:hover{
+.variant-button:hover {
   background-color: var(--backgroundColor);
   color: var(--onBackgroundColor);
   border-color: var(--onBackgroundColor);
 }
+/* *************** UTILITIES **************************/
+.below-navbar {
+  margin-top: var(--navbarHeight);
+}
+.min-h-offset {
+  min-height: calc(100vh - var(--navbarHeight));
+}
+
+.max-h-offset {
+  max-height: calc(100vh - var(--navbarHeight));
+}
+
+.h-offset {
+  height: calc(100vh - var(--navbarHeight));
+}
+
+.text-shadow-1 {
+  text-shadow: 1px 1px 2px #000;
+}
+.text-shadow-2 {
+  text-shadow: 1px 1px 2px #000, 1px 1px 2px #000;
+}
+.text-shadow-3 {
+  text-shadow: 1px 1px 2px #000, 1px 1px 2px #000, 1px 1px 2px #000;
+}
+
+/* FONTS */
+.font-anton {
+  font-family: var(--anton);
+}
+.font-dosis {
+  font-family: var(--dosis);
+}
+.font-bebas {
+  font-family: var(--bebas);
+}
+
+.font-roboto {
+  font-family: var(--roboto);
+}
+/* COLORS */
+.color-background {
+  color: var(--backgroundColor);
+}
+.color-onbackground {
+  color: var(--onBackgroundColor);
+}
+
+.bg-background {
+  background-color: var(--backgroundColor);
+}
+.bg-onbackground {
+  background-color: var(--onBackgroundColor);
+}
+
+.color-primary {
+  color: var(--primaryColor);
+}
+.color-onprimary {
+  color: var(--onPrimaryColor);
+}
+
+.bg-primary {
+  background-color: var(--primaryColor);
+}
+.bg-onprimary {
+  background-color: var(--onPrimaryColor);
+}
+
+.color-error {
+  color: var(--error);
+}
+.bg-error {
+  background-color: var(--error);
+}
+.color-successful {
+  color: var(--successful);
+}
+.bg-successful {
+  background-color: var(--successful);
+}
 
 /* ANIMATIONS */
-@keyframes scaleInBounce{
-  0%{
+@keyframes scaleInBounce {
+  0% {
     transform: scale(0.7);
   }
-  50%{
+  50% {
     transform: scale(1.15);
   }
-  100%{
+  100% {
     transform: scale(1.1);
   }
 }
 
-@keyframes scaleOutBounce{
-  0%{
+@keyframes scaleOutBounce {
+  0% {
     transform: scale(1.1);
   }
-  50%{
+  50% {
     transform: scale(0.7);
   }
-  100%{
+  100% {
     transform: scale(1);
   }
 }
+
+.hover-scale {
+  transition: transform 0.3s;
+}
+.hover-scale:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
 /*  SCROLL BAR */
 
 /* width */
@@ -251,27 +255,23 @@ a:link {
 
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  background:  var(--onBackgroundColor);
+  background: var(--onBackgroundColor);
 }
 
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background:  var(--onBackgroundColor);
+  background: var(--onBackgroundColor);
 }
 
-/* THEMES */
-body[data-theme = 'dark'] {
-    --backgroundColor: rgb(15, 15, 15);
-    --onBackgroundColor:rgb(255, 255, 255); 
-    --navbarColor:rgba(0, 0, 0, 0.8);
-  }
-
-body[data-theme = 'light'] {
-    --backgroundColor: #fff;
+/* *************************** THEMES *************************************/
+body[data-theme="dark"] {
+  --backgroundColor: rgb(15, 15, 15);
+  --onBackgroundColor: rgb(255, 255, 255);
+  --navbarColor: rgba(0, 0, 0, 0.8);
 }
 
+body[data-theme="light"] {
+  --backgroundColor: #fff;
+}
 
-
-
-
-
+@tailwind utilities;
