@@ -13,6 +13,8 @@ import { PAGE_ROUTES } from './models/PageRoutes';
 import ProductsMain from './components/products-main/ProductsMain';
 import ProductView from './components/product-view/ProductView';
 import NotFound from './components/notfound/NotFound';
+import SignIn from './components/sign-in/SignIn';
+import SignUp from './components/sign-up/SignUp';
 
 function App() {
   // windowSizes();
@@ -36,6 +38,12 @@ function App() {
               <ProductView key={window.location.pathname} />)} />
           <Route exact path="/">
             <Redirect to={PAGE_ROUTES.home}/>
+          </Route>
+          <Route path={PAGE_ROUTES.signIn}  >
+            <SignIn/>
+          </Route>
+          <Route path={PAGE_ROUTES.signUp}  >
+            <SignUp/>
           </Route>
           <Route path='*' exact={true} >
             <NotFound/>
