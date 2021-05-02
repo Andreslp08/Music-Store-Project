@@ -1,7 +1,7 @@
 import React from 'react'
 import { Swicth } from '../switch/Switch'
 import './Navbar.css'
-import { NavLink, withRouter } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import { PAGE_ROUTES } from '../../models/PageRoutes';
 
  class Navbar extends React.Component {
@@ -41,7 +41,7 @@ import { PAGE_ROUTES } from '../../models/PageRoutes';
                                 <button className="rounded-full  m-2 color-onbackground hover-scale"  onClick={()=>{ this.showMenu(false)}}>
                                     <i className="fas fa-heart hover:text-red-500"></i>
                                 </button>
-                                <button className="primary-button rounded-full py-1">Sign In</button>
+                                <Link className="primary-button rounded-full py-1" to={PAGE_ROUTES.signIn}>Sign In</Link>
                                 {/* <p className="p-1 color-onbackground text-center">Bryan Andrés López Palacios</p>
                                 <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/12/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" className="rounded-full w-9 h-9 hover-scale m-1 mx-2 border-none"  onClick={()=>{ this.showMenu(false)}}></img> */}
                             </div>
