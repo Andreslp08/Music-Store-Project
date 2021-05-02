@@ -1,4 +1,6 @@
 export const PAGE_ROUTES = {
+    signIn:"/sign-in",
+    signUp:"/sign-up",
     home:"/home",
     products:{
         sectionParams:"/products/:section",
