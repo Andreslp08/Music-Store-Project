@@ -126,6 +126,41 @@ a:link {
   color: var(--onBackgroundColor);
   border-color: var(--onBackgroundColor);
 }
+
+.textfield{
+  position: relative;
+  margin: .5rem;
+  padding: .5rem;
+  background-color: transparent;
+  border: solid;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: var(--onBackgroundColor);
+  text-align: center;
+  color: var(--onBackgroundColor);
+  font-family: var(--roboto);
+
+}
+
+.textfield:active, .textfield:focus{
+  border: solid;
+  border-color: var(--onBackgroundColor);
+  animation: scaleInBounce .3s;
+}
+
+.primary-textfield{
+  transition: border-color .3s;
+}
+
+.primary-textfield:hover{
+  border-bottom-color: var(--primaryColor);
+}
+
+.primary-textfield:focus{
+  border-color: var(--primaryColor);
+}
+
 /* *************** UTILITIES **************************/
 .below-navbar {
   margin-top: var(--navbarHeight);
@@ -140,6 +175,10 @@ a:link {
 
 .h-offset {
   height: calc(100vh - var(--navbarHeight));
+}
+
+.min-h-50vh{
+  min-height: 90vh;
 }
 
 .text-shadow-1 {
