@@ -3,8 +3,29 @@
     position: relative;
     min-width: 50px;
     min-height: 25px;
+    max-width: 50px;
+    max-height: 25px;
     border-radius: 25px;
 }
+
+.switch::before {
+    content: '';
+    top: 0;
+    left: 0;
+    position: absolute;
+    min-width: 50px;
+    min-height: 25px;
+    max-width: 50px;
+    max-height: 25px;
+    border-radius: 25px;
+    opacity: 0;
+    box-shadow: 0 0 8px 3px var(--primaryColor);
+    transition: box-shadow 3s, opacity .3s;
+}
+.switch[data-activated="activated"].switch::before{
+    opacity: .6;
+}
+
 .switch:hover{
     cursor: pointer;
 }
@@ -19,7 +40,9 @@
     border-radius: 100%;
     transition: transform .3s, background-color .3s;
 }
-
+.switch-toogle.switch-activated{
+    transform: translateX(calc(100% + 2px));
+}
 .switch-toogle.switch-activated{
     transform: translateX(calc(100% + 2px));
 }

@@ -63,9 +63,11 @@ export class Swicth extends React.Component{
         this.toogleComponent.current.classList.remove('switch-activated');
         this.toogleComponent.current.classList.remove('switch-desactivated');
         if( tof == true ){
+            this.mainContainer.current.dataset.activated = "activated";
             this.toogleComponent.current.classList.add('switch-activated');
         }
         else{
+            this.mainContainer.current.dataset.activated = "desactivated";
             this.toogleComponent.current.classList.add('switch-desactivated');
         }
         this.setState({activated:tof});
