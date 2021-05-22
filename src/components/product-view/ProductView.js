@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { ProductsController } from '../../controllers/ProductsController';
 import './ProductView.css';
-import ReactImageZoom from 'react-image-zoom';
+// import ReactImageZoom from 'react-image-zoom';
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
 
