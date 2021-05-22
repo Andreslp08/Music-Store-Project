@@ -26,7 +26,7 @@ class SignIn extends React.Component {
                                 <h3 className="color-onbackground m-2 font-roboto">Remember me</h3>
                                 <Swicth />
                             </div>
-                            <Link className="m-2 text-center text-xs color-onbackground font-roboto">Forgot password ? Click here</Link>
+                            <Link className="m-2 text-center text-xs color-onbackground font-roboto" to="/recover-password">Forgot password ? Click here</Link>
                             <input className="primary-button rounded-full cursor-pointer" type="submit" value="Sign In" required></input>
                         </form>
                         <h3 className="color-onbackground m-2 font-anton font-roboto font-bold">Or Sign in with</h3>
