@@ -19,7 +19,7 @@ import SignUp from './components/sign-up/SignUp';
 function App() {
   // windowSizes();
   return (
-    <Router>
+    <Router basename="xd">
       <div className="App">
         <Navbar />
       </div>
