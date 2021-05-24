@@ -89,6 +89,22 @@ a:link {
   transition: color 0.3s, background-color 0.3s, border 0.3s;
 }
 
+
+.favorite-button-active {
+  color: #ff9d00;
+  cursor: pointer;
+  animation: scaleInBounce 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.cart-button-active {
+  color: #ff9d00;
+  cursor: pointer;
+  animation: scaleInBounce 0.3s;
+  animation-fill-mode: forwards;
+}
+
+
 .primary-button {
   background-color: var(--primaryColor);
   color: var(--onPrimaryColor);
@@ -105,7 +121,8 @@ a:link {
 
 .primary-button:hover,
 .secondary-button:hover,
-.variant-button:hover {
+.variant-button:hover{
+  cursor: pointer;
   animation: scaleInBounce 0.3s;
   animation-fill-mode: forwards;
 }
