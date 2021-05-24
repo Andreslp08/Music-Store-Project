@@ -36,10 +36,10 @@ import { PAGE_ROUTES } from '../../models/PageRoutes';
                         <div className="navbar-user-section flex justify-center items-center flex-row mx-4 flex-wrap">
                             <div className="flex flex-nowrap justify-center items-center">
                                 <button className="rounded-full  m-2 color-onbackground hover-scale"  onClick={()=>{ this.showMenu(false)}}>
-                                    <i className="fas fa-shopping-cart hover:text-indigo-700"></i>
+                                    <i className="fas fa-shopping-cart"></i>
                                 </button>
                                 <button className="rounded-full  m-2 color-onbackground hover-scale"  onClick={()=>{ this.showMenu(false)}}>
-                                    <i className="fas fa-heart hover:text-red-500"></i>
+                                    <i className="fas fa-star favorite-button"></i>
                                 </button>
                                 <Link className="primary-button rounded-full py-1" to={PAGE_ROUTES.signIn} onClick={()=>{ this.showMenu(false)}}>Sign In</Link>
                                 {/* <p className="p-1 color-onbackground text-center">Bryan Andrés López Palacios</p>
