@@ -1,5 +1,5 @@
 import { data } from 'autoprefixer';
-import React from 'react';
+import React, { createRef } from 'react';
 import { withRouter } from 'react-router';
 import { ProductsController } from '../../controllers/ProductsController';
 import './ProductView.css';
@@ -10,6 +10,8 @@ import "react-awesome-lightbox/build/style.css";
 class ProductView extends React.Component {
     constructor(props) {
         super(props);
+        this.favoriteButtonRef = React.createRef();
+        this.cartButtonRef = React.createRef();
         this.state = {
             data: {
                 id: 1,
@@ -25,9 +27,12 @@ class ProductView extends React.Component {
             },
             exists: false,
             errorMsg: "",
-            zoomImage: false
+            zoomImage: false,
+            favoriteStates: { added: "added to", toAdd: "add to" },
+            favoriteButtonText: "add to",
+            cartStates: { added: "Added to", toAdd: "add to" },
+            cartButtonText: "add to",
         }
-
         this.onClickImage = this.onClickImage.bind(this);
 
     }
@@ -69,12 +74,13 @@ class ProductView extends React.Component {
                             <h2 className="color-onbackground text-xl sm:text-2xl text-center font-anton m-2">{name}</h2>
                             <p className="font-roboto color-onbackground text-3xl sm:text-5xl text-center font-anton m-2">{price}</p>
                             {this.QuantityInput()}
-                            {this.state.data.isSoldOut ==false ?
+                            {this.state.data.isSoldOut == false ?
                                 <div className="flex items-center justify-center flex-wrap">
                                     <button className="primary-button">Buy now</button>
-                                    <button className="secondary-button rounded-full">Add to cart</button>
+                                    <button className="variant-button rounded-full" ref={this.cartButtonRef}>{this.state.cartButtonText} <i className="fas fa-shopping-cart"></i></button>
+                                    <button className="variant-button rounded-full" ref={this.favoriteButtonRef}>{this.state.favoriteButtonText} <i className="fas fa-star" ></i></button>
                                 </div>
-                                : 
+                                :
                                 this.SouldOutTag()
                             }
                             <div className="flex items-center justify-center flex-wrap">
@@ -85,7 +91,7 @@ class ProductView extends React.Component {
                                 <h3 className="font-bebas text-left color-onbackground border-solid border-t-0 border-l-0 border-r-0 p-2 w-min m-2">Description</h3>
                                 <p className="font-dosis  font-light color-onbackground m-2">{this.state.data.details}</p>
                             </div>
-                            
+
                         </section>
                     </div>
                 }
@@ -97,38 +103,84 @@ class ProductView extends React.Component {
     }
 
 
-    QuantityInput(){
-        return <input type="number" className="p-2 m-2 text-center rounded-full w-20 border-solid border-black border-2"  defaultValue="1" min="1" max="1000" step="1" placeholder="Quantity" />
+    QuantityInput() {
+        return <input type="number" className="p-2 m-2 text-center rounded-full w-20 border-solid border-black border-2" defaultValue="1" min="1" max="1000" step="1" placeholder="Quantity" />
     }
 
-    PromoTag(){
+    PromoTag() {
         return <div>
-            {this.state.data.isPromo?
-            <p className="color-onbackground text-xl m-2 border-solid p-2 font-anton">{this.state.data.promo}</p>
-            :null
+            {this.state.data.isPromo ?
+                <p className="color-onbackground text-xl m-2 border-solid p-2 font-anton">{this.state.data.promo}</p>
+                : null
             }
         </div>
     }
 
-    SouldOutTag(){
+    SouldOutTag() {
         return <div>
-            {this.state.data.isSoldOut?
-            <p className="color-error text-xl m-2 border-solid p-2 font-anton">Sold Out</p>
-            :null
+            {this.state.data.isSoldOut ?
+                <p className="color-error text-xl m-2 border-solid p-2 font-anton">Sold Out</p>
+                : null
             }
         </div>
     }
 
-    NewTag(){
+    NewTag() {
         return <div>
-            {this.state.data.isNew?
-            <p className="color-successful text-xl m-2 border-solid p-2 font-anton">New</p>
-            :null
+            {this.state.data.isNew ?
+                <p className="color-successful text-xl m-2 border-solid p-2 font-anton">New</p>
+                : null
             }
         </div>
     }
     componentDidMount() {
+        setTimeout(() => {
+            this.favoriteHandler();
+            this.cartHandler();
+        }, 250);
         this.loadProductData();
+    }
+
+    favoriteHandler() {
+        const favoriteButton = this.favoriteButtonRef.current;
+        if( favoriteButton == null){
+            return;
+        }
+        const activeClass = 'favorite-button-active'
+        favoriteButton.addEventListener('click', (e) => {
+            const icon = favoriteButton.children.item(0);
+            icon.classList.toggle(activeClass);
+            if (icon.classList.contains(activeClass)) {
+                this.setState({
+                    favoriteButtonText: this.state.favoriteStates.added
+                })
+            } else {
+                this.setState({
+                    favoriteButtonText: this.state.favoriteStates.toAdd
+                })
+            }
+        })
+    }
+
+    cartHandler() {
+        const cartButton = this.cartButtonRef.current;
+        if( cartButton == null){
+            return;
+        }
+        const activeClass = 'cart-button-active'
+        cartButton.addEventListener('click', (e) => {
+            const icon = cartButton.children.item(0);
+            icon.classList.toggle(activeClass);
+            if (icon.classList.contains(activeClass)) {
+                this.setState({
+                    cartButtonText: this.state.cartStates.added
+                })
+            } else {
+                this.setState({
+                    cartButtonText: this.state.cartStates.toAdd
+                })
+            }
+        })
     }
 
     loadProductData() {
