@@ -15,6 +15,8 @@ import ProductView from './components/product-view/ProductView';
 import NotFound from './components/notfound/NotFound';
 import SignIn from './components/sign-in/SignIn';
 import SignUp from './components/sign-up/SignUp';
+import Favorites from './components/favorites/Favorites';
+import Cart from './components/cart/Cart';
 
 function App() {
   // windowSizes();
@@ -44,6 +46,12 @@ function App() {
           </Route>
           <Route path={PAGE_ROUTES.signUp}  >
             <SignUp/>
+          </Route>
+          <Route path={PAGE_ROUTES.favorites} >
+            <Favorites/>
+          </Route>
+          <Route path={PAGE_ROUTES.cart} >
+            <Cart/>
           </Route>
           <Route path='*' exact={true} >
             <NotFound/>
