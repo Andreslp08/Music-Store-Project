@@ -33,7 +33,7 @@ import ProductCard from '../product-card/ProductCard';
 
     render() {
         return (
-            <section className="relative flex flex-col w-full min-h-screen">
+            <section className="relative flex flex-col w-full min-h-offset">
                 <section className="flex flex-wrap justify-between">
                     <h3 className="color-onbackground text-center text-3xl sm:text-5xl m-3 font-anton">{this.props.sectionName.toUpperCase()  || "Section"}</h3>
                     <div className="flex flex-wrap items-center m-3">
