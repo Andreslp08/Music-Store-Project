@@ -35,12 +35,12 @@ import { PAGE_ROUTES } from '../../models/PageRoutes';
                         </ul>
                         <div className="navbar-user-section flex justify-center items-center flex-row mx-4 flex-wrap">
                             <div className="flex flex-nowrap justify-center items-center">
-                                <button className="rounded-full  m-2 color-onbackground hover-scale"  onClick={()=>{ this.showMenu(false)}}>
+                                <Link className="rounded-full  m-2 color-onbackground hover-scale" to={PAGE_ROUTES.cart} onClick={()=>{ this.showMenu(false)}}>
                                     <i className="fas fa-shopping-cart"></i>
-                                </button>
-                                <button className="rounded-full  m-2 color-onbackground hover-scale"  onClick={()=>{ this.showMenu(false)}}>
+                                </Link>
+                                <Link className="rounded-full  m-2 color-onbackground hover-scale" to ={PAGE_ROUTES.favorites} onClick={()=>{ this.showMenu(false)}}>
                                     <i className="fas fa-star favorite-button"></i>
-                                </button>
+                                </Link>
                                 <Link className="primary-button rounded-full py-1" to={PAGE_ROUTES.signIn} onClick={()=>{ this.showMenu(false)}}>Sign In</Link>
                                 {/* <p className="p-1 color-onbackground text-center">Bryan Andrés López Palacios</p>
                                 <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/12/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" className="rounded-full w-9 h-9 hover-scale m-1 mx-2 border-none"  onClick={()=>{ this.showMenu(false)}}></img> */}
