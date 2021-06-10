@@ -6,6 +6,8 @@ import './ProductView.css';
 // import ReactImageZoom from 'react-image-zoom';
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
+import store from '../../redux/store/Store';
+import { addProductToCart, addProductToFavorite, removeProductFromCart, updateCartProductQuantity } from '../../redux/actions/ProductActions';
 
 class ProductView extends React.Component {
     constructor(props) {
@@ -32,8 +34,10 @@ class ProductView extends React.Component {
             favoriteButtonText: "add to",
             cartStates: { added: "Added to", toAdd: "add to" },
             cartButtonText: "add to",
+            quantity:1
         }
         this.onClickImage = this.onClickImage.bind(this);
+        this.quantityInputChangeHandler = this.quantityInputChangeHandler.bind(this);
 
     }
 
@@ -104,7 +108,8 @@ class ProductView extends React.Component {
 
 
     QuantityInput() {
-        return <input type="number" className="p-2 m-2 text-center rounded-full w-20 border-solid border-black border-2" defaultValue="1" min="1" max="1000" step="1" placeholder="Quantity" />
+        const { quantity} = this.state;
+        return <input type="number" className="p-2 m-2 text-center rounded-full w-20 border-solid border-black border-2"  value={quantity} onChange={this.quantityInputChangeHandler} min="1" max="1000" step="1" placeholder="Quantity" />
     }
 
     PromoTag() {
@@ -167,20 +172,49 @@ class ProductView extends React.Component {
         if( cartButton == null){
             return;
         }
+        const {id} = this.state.data;
+        let cartData = store.getState().cart.find((product, index, array)=> product.id == id?product:false)
         const activeClass = 'cart-button-active'
+        const icon = cartButton.children.item(0);
+        // check if this product is added to cart and load cart data
+        if( cartData){
+            icon.classList.toggle(activeClass);
+            this.setState({
+                quantity:cartData.quantity,
+                cartButtonText: this.state.cartStates.added
+            })
+        }
+        // add to cart or remove from cart
         cartButton.addEventListener('click', (e) => {
-            const icon = cartButton.children.item(0);
             icon.classList.toggle(activeClass);
             if (icon.classList.contains(activeClass)) {
                 this.setState({
                     cartButtonText: this.state.cartStates.added
                 })
+                store.dispatch(addProductToCart({
+                    id:this.state.data.id,
+                    quantity: parseInt(this.state.quantity) 
+                  }))
             } else {
                 this.setState({
                     cartButtonText: this.state.cartStates.toAdd
                 })
+                store.dispatch(removeProductFromCart(this.state.data.id));
             }
         })
+    }
+
+    quantityInputChangeHandler(event){
+        this.setState({
+            quantity:event.currentTarget.value
+        })
+        const isAddedToCart = this.state.cartButtonText == this.state.cartStates.added?true:false;
+        if( isAddedToCart){
+            store.dispatch(updateCartProductQuantity({
+                id:this.state.data.id,
+                quantity: parseInt(event.currentTarget.value) 
+              }))
+        }
     }
 
     loadProductData() {

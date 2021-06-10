@@ -10,7 +10,7 @@ const addProductToCart = ({id, quantity})=>{
 
 const updateCartProductQuantity = ({id, quantity})=>{
     return {
-        type:ACTIONS.addToCart,
+        type:ACTIONS.updateCartProductQuantity,
         product:{id, quantity}
     }
 }
@@ -38,7 +38,8 @@ const removeProductFromFavorites = (id)=>{
 
 export {
     addProductToCart,
-    addProductToFavorite,
     removeProductFromCart,
+    updateCartProductQuantity,
+    addProductToFavorite,
     removeProductFromFavorites
 }
