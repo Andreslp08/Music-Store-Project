@@ -43,7 +43,7 @@ export const PRODUCTS_DB = [
         isNew: true, 
         isPromo: true, 
         promo: "50% 0ff",
-        isSoldOut:true 
+        isSoldOut:false 
     },
     { 
         id: 3, 
@@ -55,7 +55,7 @@ export const PRODUCTS_DB = [
         isNew: false, 
         isPromo: true, 
         promo: "50% 0ff",
-        isSoldOut:true  
+        isSoldOut:false  
     },
     { 
         id: 4,
@@ -67,7 +67,7 @@ export const PRODUCTS_DB = [
         isNew: true, 
         isPromo: false, 
         promo: "" ,
-        isSoldOut:true 
+        isSoldOut:false 
     },
     { 
         id: 5, 
@@ -79,7 +79,7 @@ export const PRODUCTS_DB = [
         isNew: true, 
         isPromo: true, 
         promo: "50% 0ff",
-        isSoldOut:true  
+        isSoldOut:false  
     },
     { 
         id: 6, 
@@ -91,7 +91,7 @@ export const PRODUCTS_DB = [
         isNew: false, 
         isPromo: true, 
         promo: "50% 0ff",
-        isSoldOut:true  
+        isSoldOut:false  
     },
     { 
         id: 7, 
@@ -103,7 +103,7 @@ export const PRODUCTS_DB = [
         isNew: false, 
         isPromo: true, 
         promo: "50% 0ff" ,
-        isSoldOut:true 
+        isSoldOut:false 
     },
     ,
     { 
@@ -116,6 +116,6 @@ export const PRODUCTS_DB = [
         isNew: false, 
         isPromo: true, 
         promo: "50% 0ff" ,
-        isSoldOut:true 
+        isSoldOut:false 
     }
 ]
