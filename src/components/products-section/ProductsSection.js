@@ -139,7 +139,7 @@ import ProductCard from '../product-card/ProductCard';
     loadError(error){
         return (
             <div className="flex justify-center items-center flex-col">
-                <i class="fas fa-sad-tear fa-4x color-onbackground m-2"></i>
+                <i className="fas fa-sad-tear fa-4x color-onbackground m-2"></i>
             <p className="color-onbackground font-dosis">{error}</p>
             </div>)
     }
