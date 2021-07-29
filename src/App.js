@@ -56,7 +56,9 @@ function App() {
               <Cart />
             </Route>
             <Route path='*' exact={true} >
+              <div className ="flex flex-col w-full items-center justify-center below-navbar min-h-offset">
               <NotFound />
+              </div>
             </Route>
           </Switch>
         </main>
