@@ -4,18 +4,19 @@ import { Home } from '../home/Home';
 import { NavLink, Link } from "react-router-dom";
 import { PAGE_ROUTES } from '../../models/PageRoutes';
 import './ProductsBar.css'
+import { CATEGORIES } from '../../models/Categories';
 export class ProductsBar extends React.Component {
 
 
     constructor(props) {
         super(props)
         this.state = {
-            category: "",
-            link: ""
+            sections: undefined
         }
         this.productListButton = React.createRef();
         this.bar = React.createRef();
     }
+
 
     render() {
         return (
@@ -25,33 +26,7 @@ export class ProductsBar extends React.Component {
                     <i className="arrow-icon fas fa-angle-down color-primary p-1"></i>
                 </div>
                 <section className="products-list flex flex-col w-full  bg-gradient-to-r from-purple-500 to-purple-900">
-                    <section>
-                        <p className="color-onprimary m-2 font-bebas text-xl uppercase  border-b-2 border-0 border-white border-solid">Strings</p>
-                        <ul className="w-full flex flex-col items-center">
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer"><NavLink to={PAGE_ROUTES.products.guitars} activeClassName="product-link-activated" className="w-full block">Guitars</NavLink></li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer"><NavLink to={PAGE_ROUTES.products.basses} activeClassName="product-link-activated" className="w-full block">Basses</NavLink></li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl cursor-pointer"><NavLink to={PAGE_ROUTES.products.violins} activeClassName="product-link-activated" className="w-full block">Violins</NavLink></li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer"><NavLink to={PAGE_ROUTES.products.pianos} activeClassName="product-link-activated" className="w-full block">Pianos</NavLink></li>
-                        </ul>
-                    </section>
-                    <section>
-                        <p className="color-onprimary m-2 font-bebas text-xl uppercase  border-b-2 border-0 border-white border-solid">Percussion</p>
-                        <ul className="w-full flex flex-col items-center">
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer">Drum-Kits</li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer">Congos</li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl cursor-pointer">Xylophones</li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer">Tambourines</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <p className="color-onprimary m-2 font-bebas text-xl uppercase  border-b-2 border-0 border-white border-solid">Wind</p>
-                        <ul className="w-full flex flex-col items-center">
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer">Saxophones</li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer">trumpets</li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl cursor-pointer">Flutes</li>
-                            <li className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer">Clarinets</li>
-                        </ul>
-                    </section>
+                    {this.loadCategories()}
                 </section>
             </section>
         )
@@ -64,6 +39,30 @@ export class ProductsBar extends React.Component {
         this.productsLinksManager();
         this.barVisibilityManager();
     }
+
+    loadCategories() {
+        return CATEGORIES.map((category, index) => {
+            return (
+                <section key={`category_${index}`}>
+                    <p className="color-onprimary m-2 font-bebas text-xl uppercase  border-b-2 border-0 border-white border-solid">{category.name}</p>
+                    <ul className="w-full flex flex-col items-center">
+                      {this.loadSubCategories(category.name)}
+                    </ul>
+                </section>
+            )
+        })
+    }
+
+    loadSubCategories(categoryName) {
+        let categorySection = CATEGORIES.find(category => category.name == categoryName);
+        return categorySection.subcategories.map((subcategory,index) => {
+            return (
+                <li key={`subcategory_${index}`} className="product-link list-none w-full p-x-2 text-center text-white font-dosis text-xl  cursor-pointer"><NavLink to={`${subcategory.link}`} activeClassName="product-link-activated" className="w-full block">{subcategory.name}</NavLink></li>
+            )
+        })
+    }
+
+
 
     barVisibilityManager() {
         this.productListButton.current.addEventListener('click', (e) => {
