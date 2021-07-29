@@ -14,6 +14,11 @@ export const PAGE_ROUTES = {
         trumpets:"/products/trumpets",
         flutes:"/products/flutes",
         clarinets:"/products/clarinets",
+        drumKists:"/products/drumkits",
+        congos:"/products/congos",
+        xylophones:"/products/xylophones",
+        tambourines:"/products/tambourines"
+
     },
     favorites:"/favorites",
     cart:"/cart"
