@@ -7,7 +7,8 @@ import './ProductView.css';
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
 import store from '../../redux/store/Store';
-import { addProductToCart, addProductToFavorite, removeProductFromCart, updateCartProductQuantity } from '../../redux/actions/ProductActions';
+import { addProductToCart, addProductToFavorite, removeProductFromCart, removeProductFromFavorites, updateCartProductQuantity } from '../../redux/actions/ProductActions';
+import TwoStateButton from '../two-state-button/TwoStateButton';
 
 class ProductView extends React.Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class ProductView extends React.Component {
                 id: 1,
                 section: "guitars",
                 name: "Product name",
-                imgPath: this.imgRef,
+                mainImgPath: this.imgRef,
+                imagesPath:[],
                 price: 0,
                 details: "Details",
                 isNew: true,
@@ -27,18 +29,17 @@ class ProductView extends React.Component {
                 promo: "50% off",
                 isSoldOut: true
             },
+            addedToCart: false,
+            addedToFavorites: false,
             exists: false,
             errorMsg: "",
             zoomImage: false,
-            favoriteStates: { added: "added to", toAdd: "add to" },
-            favoriteButtonText: "add to",
-            cartStates: { added: "Added to", toAdd: "add to" },
-            cartButtonText: "add to",
-            quantity:1
+            quantity: 1
         }
         this.onClickImage = this.onClickImage.bind(this);
         this.quantityInputChangeHandler = this.quantityInputChangeHandler.bind(this);
-
+        this.onCartButtonClick = this.onCartButtonClick.bind(this);
+        this.onFavoriteButtonClick = this.onFavoriteButtonClick.bind(this);
     }
 
     onClickImage() {
@@ -52,16 +53,6 @@ class ProductView extends React.Component {
     }
 
     render() {
-        let images = [
-            {
-                url: this.state.data.imgPath,
-                title: "image title 1"
-            },
-            {
-                url: "https://images.unsplash.com/photo-1617165162694-9703691c370b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                title: "image title 2"
-            }
-        ]
         const name = this.state.data.name;
         const price = `$${new Intl.NumberFormat().format(this.state.data.price)}`;
         return (
@@ -71,8 +62,8 @@ class ProductView extends React.Component {
                     :
                     <div className="grid sm:grid-cols-2 grid-cols-1">
                         <figure className="relative flex items-center h-60 sm:min-h-screen sm:sticky sm:top-0 sm:bottom-0 sm:left-0 bg-black flex justify-center overflow-hidden">
-                            <img ref={this.image} className="absolute top-0 left-0 w-full h-full filter blur-md border-none outline-none" src={this.state.data.imgPath} onClick={this.onClickImage}></img>
-                            <img ref={this.image} className="product-view-img rounded-xl z-50" src={this.state.data.imgPath} onClick={this.onClickImage}></img>
+                            <img ref={this.image} className="absolute top-0 left-0 w-full h-full filter blur-md border-none outline-none" src={this.state.data.mainImgPath} onClick={this.onClickImage}></img>
+                            <img ref={this.image} className="product-view-img rounded-xl z-50" src={this.state.data.mainImgPath} onClick={this.onClickImage}></img>
                         </figure>
                         <section className="flex flex-col min-h-offset items-center">
                             <h2 className="color-onbackground text-xl sm:text-2xl text-center font-anton m-2">{name}</h2>
@@ -81,8 +72,8 @@ class ProductView extends React.Component {
                             {this.state.data.isSoldOut == false ?
                                 <div className="flex items-center justify-center flex-wrap">
                                     <button className="primary-button">Buy now</button>
-                                    <button className="variant-button rounded-full" ref={this.cartButtonRef}>{this.state.cartButtonText} <i className="fas fa-shopping-cart"></i></button>
-                                    <button className="variant-button rounded-full" ref={this.favoriteButtonRef}>{this.state.favoriteButtonText} <i className="fas fa-star" ></i></button>
+                                    <TwoStateButton iconClass={"fas fa-shopping-cart"} showIcon={true} active={this.state.addedToCart} defaultText={"Add to"} activeText={"Added to"} onClick={this.onCartButtonClick} />
+                                    <TwoStateButton iconClass={"fas fa-star"} showIcon={true} active={this.state.addedToFavorites} defaultText={"Add to"} activeText={"Added to"} onClick={this.onFavoriteButtonClick} />
                                 </div>
                                 :
                                 this.SouldOutTag()
@@ -100,7 +91,7 @@ class ProductView extends React.Component {
                     </div>
                 }
                 {this.state.zoomImage ?
-                    <Lightbox images={images} onClose={() => { this.setState({ zoomImage: false }) }} />
+                    <Lightbox images={this.state.data.imagesPath} onClose={() => { this.setState({ zoomImage: false }) }} />
                     : null}
             </section>
         );
@@ -108,8 +99,8 @@ class ProductView extends React.Component {
 
 
     QuantityInput() {
-        const { quantity} = this.state;
-        return <input type="number" className="p-2 m-2 text-center rounded-full w-20 border-solid border-black border-2"  value={quantity} onChange={this.quantityInputChangeHandler} min="1" max="1000" step="1" placeholder="Quantity" />
+        const { quantity } = this.state;
+        return <input type="number" className="p-2 m-2 text-center rounded-full w-20 border-solid border-black border-2" value={quantity} onChange={this.quantityInputChangeHandler} min="1" max="1000" step="1" placeholder="Quantity" />
     }
 
     PromoTag() {
@@ -139,81 +130,63 @@ class ProductView extends React.Component {
         </div>
     }
     componentDidMount() {
-        setTimeout(() => {
-            this.favoriteHandler();
-            this.cartHandler();
-        }, 250);
         this.loadProductData();
+        this.initialCartButtonState();
+        this.initialFavoriteButtonState();
     }
 
-    favoriteHandler() {
-        const favoriteButton = this.favoriteButtonRef.current;
-        if( favoriteButton == null){
-            return;
-        }
-        const activeClass = 'favorite-button-active'
-        favoriteButton.addEventListener('click', (e) => {
-            const icon = favoriteButton.children.item(0);
-            icon.classList.toggle(activeClass);
-            if (icon.classList.contains(activeClass)) {
-                this.setState({
-                    favoriteButtonText: this.state.favoriteStates.added
-                })
-            } else {
-                this.setState({
-                    favoriteButtonText: this.state.favoriteStates.toAdd
-                })
-            }
-        })
-    }
 
-    cartHandler() {
-        const cartButton = this.cartButtonRef.current;
-        if( cartButton == null){
-            return;
-        }
-        const {id} = this.state.data;
-        let cartData = store.getState().cart.find((product, index, array)=> product.id == id?product:false)
-        const activeClass = 'cart-button-active'
-        const icon = cartButton.children.item(0);
-        // check if this product is added to cart and load cart data
-        if( cartData){
-            icon.classList.toggle(activeClass);
-            this.setState({
-                quantity:cartData.quantity,
-                cartButtonText: this.state.cartStates.added
-            })
-        }
-        // add to cart or remove from cart
-        cartButton.addEventListener('click', (e) => {
-            icon.classList.toggle(activeClass);
-            if (icon.classList.contains(activeClass)) {
-                this.setState({
-                    cartButtonText: this.state.cartStates.added
-                })
-                store.dispatch(addProductToCart({
-                    id:this.state.data.id,
-                    quantity: parseInt(this.state.quantity) 
-                  }))
-            } else {
-                this.setState({
-                    cartButtonText: this.state.cartStates.toAdd
-                })
-                store.dispatch(removeProductFromCart(this.state.data.id));
-            }
-        })
-    }
-
-    quantityInputChangeHandler(event){
+    initialCartButtonState() {
+        const id = this.props.match.params.id;
+        let isProductAdded = store.getState().cart.find((product, index, array) => product.id == id )
         this.setState({
-            quantity:event.currentTarget.value
+            addedToCart: isProductAdded
         })
-        const isAddedToCart = this.state.cartButtonText == this.state.cartStates.added?true:false;
-        if( isAddedToCart){
+    }
+
+    onCartButtonClick(isActivated) {
+        if (isActivated) {
+            store.dispatch(addProductToCart({
+                id: this.state.data.id,
+                quantity: parseInt(this.state.quantity)
+            }))
+        }
+        else {
+            store.dispatch(removeProductFromCart(this.state.data.id));
+        }
+    }
+
+    initialFavoriteButtonState() {
+        const id = this.props.match.params.id;
+        let isProductAdded = store.getState().favorites.find((product, index, array) => product.id == id ? true : false)
+        this.setState({
+            addedToFavorites: isProductAdded
+        })
+    }
+
+    onFavoriteButtonClick(isActivated) {
+        if (isActivated) {
+            store.dispatch(addProductToFavorite({
+                id: this.state.data.id,
+                quantity: parseInt(this.state.quantity)
+            }))
+        }
+        else {
+            store.dispatch(removeProductFromFavorites(this.state.data.id));
+        }
+    }
+
+
+    quantityInputChangeHandler(event) {
+        this.setState({
+            quantity: event.currentTarget.value
+        })
+        const isAddedToCart = this.state.addedToCart;
+        if (isAddedToCart) {
             store.dispatch(updateCartProductQuantity({
-                id:this.state.data.id,
-                quantity: parseInt(event.currentTarget.value) 
-              }))
+                id: this.state.data.id,
+                quantity: parseInt(event.currentTarget.value)
+            }))
         }
     }
 
@@ -223,6 +196,8 @@ class ProductView extends React.Component {
             this.setState({
                 exists: true,
                 data: res
+            },()=>{
+                
             })
         }).catch(error => {
             this.setState({
