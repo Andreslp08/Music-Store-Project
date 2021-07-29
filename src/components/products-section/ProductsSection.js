@@ -97,7 +97,7 @@ import ProductCard from '../product-card/ProductCard';
             }
             if( filteredList <= 0){
                 this.setState({
-                    products:this.loadError("Empty")
+                    products:this.loadError("No results were found")
                 })
                 return;
             }
@@ -131,13 +131,17 @@ import ProductCard from '../product-card/ProductCard';
         }
         else {
             this.setState({
-                products: this.loadError("Empty")
+                products: this.loadError("No results were found")
             })
         }
     }
 
     loadError(error){
-        return <p className="color-onbackground font-dosis">{error}</p>
+        return (
+            <div className="flex justify-center items-center flex-col">
+                <i class="fas fa-sad-tear fa-4x color-onbackground m-2"></i>
+            <p className="color-onbackground font-dosis">{error}</p>
+            </div>)
     }
 }
 
