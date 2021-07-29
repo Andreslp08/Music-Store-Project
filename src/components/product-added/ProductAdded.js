@@ -4,19 +4,23 @@ import { withRouter, Link } from 'react-router-dom';
 import { PAGE_ROUTES } from '../../models/PageRoutes';
 import './ProductAdded.css';
 import { ProductsController } from '../../controllers/ProductsController'
-import { data } from 'autoprefixer';
 import store from '../../redux/store/Store';
-import { removeProductFromCart, updateCartProductQuantity } from '../../redux/actions/ProductActions';
+import { addProductToCart, addProductToFavorite, removeProductFromCart, removeProductFromFavorites, updateCartProductQuantity } from '../../redux/actions/ProductActions';
+import TwoStateButton from '../two-state-button/TwoStateButton';
 
 class ProductAdded extends React.Component {
     constructor(props) {
         super(props);
+       
         this.state = {
+            mounted:false,
+            addedToCart:false,
+            addedToFavorites:false,
             data: {
                 id: 1,
                 name: "Guitarra Eléctrica Gibson Les Paul Custom 2018, Eboony LPC-PSL11051",
                 price: 2500,
-                imgPath: "https://images.unsplash.com/photo-1617165162694-9703691c370b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                mainImgPath: "https://images.unsplash.com/photo-1617165162694-9703691c370b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
                 quantity: 3
             },
             visibility: {
@@ -31,6 +35,21 @@ class ProductAdded extends React.Component {
         }
         this.quantityInputChangeHandler = this.quantityInputChangeHandler.bind(this);
         this.deleteProduct = this.deleteProduct.bind(this);
+        this.onCartButtonClick = this.onCartButtonClick.bind(this);
+        this.onFavoriteButtonClick = this.onFavoriteButtonClick.bind(this);
+    }
+
+
+    componentDidMount() {        
+        this.initialCartButtonState();
+        this.initialFavoriteButtonState();
+        this.loadProductData();
+        this.visibilityHandler();
+        // fuck
+        this.setState({
+            mounted:true
+        })
+        
     }
 
 
@@ -61,10 +80,10 @@ class ProductAdded extends React.Component {
 
     Image() {
         const { img } = this.state.visibility;
-        const { imgPath } = this.state.data;
+        const { mainImgPath } = this.state.data;
         return (
             img == true ?
-                <img className="productAdded-img" src={imgPath}></img>
+                <img className="productAdded-img" src={mainImgPath}></img>
                 : null
         )
 
@@ -98,24 +117,24 @@ class ProductAdded extends React.Component {
         const { buyButton } = this.state.visibility;
         return (
             buyButton == true ?
-                <button className="primary-button rounded-full text-xs">Buy now</button>
+                <button className="primary-button rounded-full">Buy now</button>
                 : null
         )
     }
     CartButton() {
         const { cartButton } = this.state.visibility;
-        return (
-            cartButton == true ?
-                <button className="secondary-button rounded-full text-xs">Add to cart</button>
-                : null
-        )
+         return (
+            cartButton == true && this.state.mounted?
+            <TwoStateButton  iconClass = {"fas fa-shopping-cart"} id="h1" showIcon ={true} active={this.state.addedToCart} defaultText={"Add to"} activeText ={"Added to"} onClick={this.onCartButtonClick}  />
+            : null
+            )
     }
 
     FavoriteButton() {
         const { favoriteButton } = this.state.visibility;
         return (
-            favoriteButton == true ?
-                <button className="variant-button rounded-full text-xs">Add to favorites</button>
+            favoriteButton == true && this.state.mounted?
+                <TwoStateButton  iconClass = {"fas fa-star"} id="h2" showIcon ={true} active={this.state.addedToFavorites} defaultText={"Add to"} activeText ={"Added to"}  onClick={this.onFavoriteButtonClick} />
                 : null
         )
     }
@@ -138,18 +157,14 @@ class ProductAdded extends React.Component {
     
     quantityInputChangeHandler(event) {
         this.setState({
-            data:{...this.state.data, quantity: event.currentTarget.value}
+            data:{...this.state.data, 
+                quantity:parseInt(event.currentTarget.value)
+            }
         })
         store.dispatch(updateCartProductQuantity({
             id: this.state.data.id,
             quantity: parseInt(event.currentTarget.value)
         }))
-    }
-
-
-    componentDidMount() {
-        this.loadProductData();
-        this.visibilityHandler();
     }
 
     loadProductData() {
@@ -187,6 +202,47 @@ class ProductAdded extends React.Component {
             })
         }
     }
+
+    initialCartButtonState(){
+        const {productId} = this.props || 1;
+        let isProductAdded = store.getState().cart.find((product, index, array)=> product.id == productId?true:false)
+            this.setState({
+                addedToCart:isProductAdded
+            })
+    }
+
+    onCartButtonClick(isActivated){
+        if( isActivated){
+            store.dispatch(addProductToCart({
+                id:this.state.data.id,
+                quantity: parseInt(this.state.data.quantity) 
+              }))
+        }
+        else{
+            store.dispatch(removeProductFromCart(this.state.data.id));
+        }
+    }
+
+    initialFavoriteButtonState(){
+        const {productId} = this.props || 1;
+        let isProductAdded = store.getState().favorites.find((product, index, array)=> product.id == productId?true:false)
+            this.setState({
+                addedToFavorites:isProductAdded
+            })
+    }
+
+    onFavoriteButtonClick(isActivated){
+        if( isActivated){
+            store.dispatch(addProductToFavorite({
+                id:this.state.data.id,
+                quantity: parseInt(this.state.data.quantity) 
+              }))
+        }
+        else{
+            store.dispatch(removeProductFromFavorites(this.state.data.id));
+        }
+    }
+
 }
 
 export default withRouter(ProductAdded);
