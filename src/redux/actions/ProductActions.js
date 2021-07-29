@@ -24,7 +24,7 @@ const removeProductFromCart = (id)=>{
 
 const addProductToFavorite = ({id, quantity})=>{
     return {
-        type:ACTIONS.addToCart,
+        type:ACTIONS.addToFavorites,
         product:{id, quantity}
     }
 }

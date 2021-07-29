@@ -30,13 +30,26 @@ const removeProductFromCartReducer = (state = initialState.cart, action) => {
     return [...state].filter((product) => product.id != action.productId);
 }
 
-const addProductToFavoriteReducer = (state = initialState.cart, action) => {
-    return [...state, action.product];
+const addProductToFavoriteReducer = (state = initialState.favorites, action) => {
+    const favoritesLength = state.length;
+    if (favoritesLength > 0) {
+        const existsProduct = state.find((product)=> product.id == action.product.id);
+        if (existsProduct == undefined) {
+            return [...state, action.product];
+        }
+    }
+    else{
+        return [...state, action.product]; 
+    }
+    return state;
 }
-
+const removeProductFromFavoriteReducer = (state = initialState.favorites, action) => {
+    return [...state].filter((product) => product.id != action.productId);
+}
 export {
     addProductToCartReducer,
     updateCartProductQuantityReducer,
     removeProductFromCartReducer,
     addProductToFavoriteReducer,
+    removeProductFromFavoriteReducer
 }
