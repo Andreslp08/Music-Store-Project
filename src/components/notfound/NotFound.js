@@ -9,7 +9,7 @@ class NotFound extends React.Component {
 
     render() {
         return (
-            <section className="flex flex-col w-full items-center justify-center below-navbar min-h-offset">
+            <section className="flex flex-col w-full items-center justify-center">
                 <h1 className="color-onbackground text-3xl font-roboto m-2 text-center">OOPS!</h1>
                 <h3 className="font-anton color-primary border-solid border-4  p-2 text-9xl animate-pulse">404</h3>
                 <h1 className="color-onbackground text-3xl font-roboto m-2 text-center">Page not found</h1>
