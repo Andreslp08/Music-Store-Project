@@ -41,7 +41,7 @@ class Cart extends React.Component {
                     {this.state.products.length> 0?
                     this.state.products:
                     <div className="flex items-center flex-col">
-                    <i class="fas fa-shopping-cart fa-4x color-onbackground"></i>
+                    <i className="fas fa-shopping-cart fa-4x color-onbackground"></i>
                     <p className="color-onbackground font-roboto m-2">Your cart is empty</p>
                     </div>
                     }
