@@ -26,10 +26,10 @@ export const CATEGORIES =
     {
         name:"Percussion",
         subcategories:[
-            {name:"Drum kits", link:PAGE_ROUTES.products.drumKits},
-            {name:"congos", link:PAGE_ROUTES.products.congos},
-            {name:"Xylophones", link:PAGE_ROUTES.products.clarinets},
-            {name:"Tambourines", link:PAGE_ROUTES.products.clarinets},
+            {name:"Drum kits", link:PAGE_ROUTES.products.drumKists},
+            {name:"Congos", link:PAGE_ROUTES.products.congos},
+            {name:"Xylophones", link:PAGE_ROUTES.products.xylophones},
+            {name:"Tambourines", link:PAGE_ROUTES.products.tambourines},
         ]
     }
 ]
