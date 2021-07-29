@@ -40,31 +40,6 @@ class ProductsMain extends React.Component {
                     <Route exact path={PAGE_ROUTES.products.productParams} render={(props) => (
                         <h1 className="below-navbar">{props.match.params.id}</h1>)
                     } />
-
-                    {/* <Route exact path={PAGE_ROUTES.products.all} >
-                            <ProductsSection sectionName={"All"} productsData={ProductsController.getAllProducts()} />
-                        </Route>
-                        <Route exact path={PAGE_ROUTES.products.guitars} >
-                            <ProductsSection sectionName={"Guitars"} productsData={ProductsController.getAllProductsBySection('guitars')} />
-                        </Route>
-                        <Route exact path={PAGE_ROUTES.products.basses} >
-                            <ProductsSection sectionName={"Basses"} productsData={ProductsController.getAllProductsBySection('basses')} />
-                        </Route>
-                        <Route exact path={PAGE_ROUTES.products.violins}>
-                            <ProductsSection sectionName={"Violins"} productsData={ProductsController.getAllProductsBySection('violins')} />
-                        </Route>
-                        <Route exact path={PAGE_ROUTES.products.clarinets}>
-                            <div className="color-onbackground">Clarinets</div>
-                        </Route>
-                        <Route exact path={PAGE_ROUTES.products.flutes}>
-                            <div className="color-onbackground">Flutes</div>
-                        </Route>
-                        <Route exact path={PAGE_ROUTES.products.saxophones}>
-                            <div className="color-onbackground">Saxophones</div>
-                        </Route>
-                        <Route exact path={PAGE_ROUTES.products.trumpets}>
-                            <div className="color-onbackground">Trumpets</div>
-                        </Route> */}
                 </section>
             </section>
 
