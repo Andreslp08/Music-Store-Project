@@ -1,11 +1,15 @@
+import { signInWithCredential } from '@firebase/auth';
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { defaultSignIn } from '../../controllers/authController';
 import { PAGE_ROUTES } from '../../models/PageRoutes';
 import { Swicth } from '../switch/Switch';
 
 class SignIn extends React.Component {
     constructor(props) {
         super(props);
+        this.emailRef = React.createRef();
+        this.passwordRef = React.createRef();
     }
 
     render() {
@@ -19,9 +23,9 @@ class SignIn extends React.Component {
                         <Link className="variant-button rounded-md" to={PAGE_ROUTES.signUp}>Sign Up</Link>
                     </section>
                     <section className="flex flex-col items-center justify-center">
-                        <form className="flex flex-col items-center justify-center">
-                            <input className="textfield primary-textfield" type="email" placeholder="Email" required></input>
-                            <input className="textfield primary-textfield" type="password" placeholder="Password" required></input>
+                        <form className="flex flex-col items-center justify-center" onSubmit={(e)=>{this.sigIn();e.preventDefault()}}>
+                            <input className="textfield primary-textfield" type="email" placeholder="Email" ref={this.emailRef} required></input>
+                            <input className="textfield primary-textfield" type="password" placeholder="Password" ref = {this.passwordRef} required></input>
                             <div className="flex flex-wrap items-center">
                                 <h3 className="color-onbackground m-2 font-roboto">Remember me</h3>
                                 <Swicth />
@@ -35,6 +39,16 @@ class SignIn extends React.Component {
                 </div>
             </div>
         )
+    }
+    sigIn(){
+        defaultSignIn(
+            this.emailRef.current.value,
+            this.passwordRef.current.value
+        ).then((userCredential)=>{
+            alert("Welcome " + userCredential.user.email);
+        }).catch(error=>{
+            alert(error);
+        })
     }
 }
 

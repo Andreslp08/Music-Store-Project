@@ -57,8 +57,11 @@ class SignUp extends React.Component{
             this.passwordRef.current.value
         )
         createAuthWith(PROVIDERS.default,user).then(res=>{
+            alert("Account created successfuly");
             this.props.history.push(PAGE_ROUTES.signIn)
-        });
+        }).catch(error=>{
+            alert(error);
+        })
     }
 
 }
