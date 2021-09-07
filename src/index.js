@@ -24,8 +24,11 @@ const firebaseConfig = {
 
     const firebaseApp = initializeApp(firebaseConfig);
     const analytics = getAnalytics(firebaseApp);
-    Auth.connectAuthEmulator(Auth.getAuth(), "http://localhost:9099");
-    Firestore.connectFirestoreEmulator(Firestore.getFirestore(),"localhost", 8989);
+
+    if(window.location.hostname == "localhost"){
+      Auth.connectAuthEmulator(Auth.getAuth(), "http://localhost:9099");
+      Firestore.connectFirestoreEmulator(Firestore.getFirestore(),"localhost", 8989);
+    }
 
 
 ReactDOM.render(
