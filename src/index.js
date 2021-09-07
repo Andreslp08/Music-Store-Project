@@ -22,13 +22,20 @@ const firebaseConfig = {
 // Initialize Firebase
 
 
-    const firebaseApp = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(firebaseApp);
+const firebaseApp = initializeApp(firebaseConfig);
+const analytics = getAnalytics(firebaseApp);
 
-    if(window.location.hostname == "localhost"){
-      Auth.connectAuthEmulator(Auth.getAuth(), "http://localhost:9099");
-      Firestore.connectFirestoreEmulator(Firestore.getFirestore(),"localhost", 8989);
-    }
+const loadEmulators = () => {
+  if ( window.location.hostname == "localhost") {
+    Auth.connectAuthEmulator(Auth.getAuth(), "http://localhost:9099");
+    Firestore.connectFirestoreEmulator(Firestore.getFirestore(), "localhost", 8989);
+  }
+}
+
+const onInit = () => {
+  loadEmulators();
+}
+
 
 
 ReactDOM.render(
@@ -42,3 +49,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+window.onload = onInit();
