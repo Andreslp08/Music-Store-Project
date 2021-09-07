@@ -54,22 +54,18 @@ const createDefaultAuth = async (user = new User()) => {
 // }
 
 const defaultSignIn = async (email, password) => {
-    let ok = false;
-    await auth.signInWithEmailAndPassword(
+    return await auth.signInWithEmailAndPassword(
         auth.getAuth(),
         email,
         password
-    ).then((userCredential) => {
-        ok = true;
-    }).catch(error => {
-        ok = false;
-        console.log(error.message);
+    ).then(userCredential=>{
+        console.log("Auth Successful");
+        return Promise.resolve(userCredential)
     })
-    if (ok) {
-        return await Promise.resolve("hola")
-    } else {
-        return await Promise.reject("adios")
-    }
+    .catch(error=>{
+        console.log(error.message)
+        return Promise.reject(error.message)
+    })
 }
 
 
