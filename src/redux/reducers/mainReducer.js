@@ -1,6 +1,7 @@
 import { initialState } from '../InitialState';
 import ACTIONS from '../actions/Actions'
 import { addProductToCartReducer, addProductToFavoriteReducer, removeProductFromCartReducer, removeProductFromFavoriteReducer, updateCartProductQuantityReducer } from './ProductReducer';
+import { updateUserReducer } from './userReducer';
 
 
 const mainReducer = (state = initialState, action) => {
@@ -20,6 +21,9 @@ const mainReducer = (state = initialState, action) => {
             break;
         case ACTIONS.removeFromFavorites:
             newState = { ...state, favorites: removeProductFromFavoriteReducer(state.favorites, action) };
+            break;
+        case ACTIONS.updateCurrentUser:
+            newState = { ...state, user: updateUserReducer(state.user, action) };
             break;
         default:
             newState = state;
