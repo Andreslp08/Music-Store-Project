@@ -21,6 +21,17 @@ const saveIntialUserData = async (user = new User()) => {
         })
 }
 
+const getUserById = async (id = "")=>{
+    const user = firestore.doc(firestore.getFirestore(), "users", id);
+    return await firestore.getDoc(user).then(userData=>{
+        return Promise.resolve(userData.data());
+    }).catch(error=>{
+        console.log(error.message);
+        return Promise.reject(error.message)
+    })
+}
+
 export {
-    saveIntialUserData
+    saveIntialUserData,
+    getUserById
 }
