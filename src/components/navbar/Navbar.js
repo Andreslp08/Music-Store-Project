@@ -3,6 +3,7 @@ import { Swicth } from '../switch/Switch'
 import './Navbar.css'
 import { Link, NavLink, withRouter } from "react-router-dom";
 import { PAGE_ROUTES } from '../../models/PageRoutes';
+import store from '../../redux/store/Store';
 
  class Navbar extends React.Component {
 
@@ -41,9 +42,15 @@ import { PAGE_ROUTES } from '../../models/PageRoutes';
                                 <Link className="rounded-full  m-2 color-onbackground hover-scale" to ={PAGE_ROUTES.favorites} onClick={()=>{ this.showMenu(false)}}>
                                     <i className="fas fa-star favorite-button"></i>
                                 </Link>
-                                <Link className="primary-button rounded-full py-1" to={PAGE_ROUTES.signIn} onClick={()=>{ this.showMenu(false)}}>Sign In</Link>
-                                {/* <p className="p-1 color-onbackground text-center">Bryan Andrés López Palacios</p>
-                                <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/12/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" className="rounded-full w-9 h-9 hover-scale m-1 mx-2 border-none"  onClick={()=>{ this.showMenu(false)}}></img> */}
+                                {store.getState().user.isAuth?
+                                <div className="flex flex-row flex-wrap items-center justify-center text-center">
+                                    <img src={store.getState().user.avatarPath}  className="rounded-full w-9 h-9 hover-scale m-1 mx-1 border-none"  onClick={()=>{ this.showMenu(false)}}></img>
+                                </div>
+                                 :
+                                 <Link className="primary-button rounded-full py-1" to={PAGE_ROUTES.signIn} onClick={()=>{ this.showMenu(false)}}>Sign In</Link>
+
+                                }
+                               
                             </div>
                         </div>
                     </div>
@@ -110,13 +117,13 @@ import { PAGE_ROUTES } from '../../models/PageRoutes';
             document.body.dataset.theme = theme;
             switch (theme) {
                 case this.themes.dark:
-                    this.switchRef.current.changeState(true);
+                    this.switchRef.current.setActive(true);
                     break;
                 case this.themes.light:
-                    this.switchRef.current.changeState(false);
+                    this.switchRef.current.setActive(false);
                     break;
                 default:
-                    this.switchRef.current.changeState(false);
+                    this.switchRef.current.setActive(false);
                     break;
             }
         }
