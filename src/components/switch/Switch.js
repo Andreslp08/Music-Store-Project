@@ -39,10 +39,10 @@ export class Swicth extends React.Component{
         this.component = this.mainContainer.current;
         this.component.addEventListener('click',()=>{
             if( this.state.activated == true ){
-                this.changeState(false);
+                this.setActive(false);
             }
             else{
-                this.changeState(true);
+                this.setActive(true);
             }
             this.component.dispatchEvent(this.switchActivatedEvent);
         });
@@ -59,7 +59,7 @@ export class Swicth extends React.Component{
         }
     }
 
-    changeState(tof){
+    setActive(tof){
         this.toogleComponent.current.classList.remove('switch-activated');
         this.toogleComponent.current.classList.remove('switch-desactivated');
         if( tof == true ){
